@@ -9,3 +9,5 @@ The utility is to be used from the command line as shown:
 LargeAddressifier.exe <file>
 ```
 Where ``<file>`` represents the path to the target application.
+
+If successful, a modified copy of the application will be created with ".new" prepended to its file extension.
