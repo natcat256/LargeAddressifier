@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    IMAGE_FILE_HEADER& coffHeader = ntHeaders.FileHeader;
+    IMAGE_FILE_HEADER coffHeader = ntHeaders.FileHeader;
 
     if ((coffHeader.Characteristics & IMAGE_FILE_EXECUTABLE_IMAGE) == 0)
     {
@@ -82,6 +82,6 @@ int main(int argc, char* argv[])
     inFile.seekg(0);
 
     outFile << inFile.rdbuf();
-    outFile.seekp(dosHeader.e_lfanew);
-    outFile.write(reinterpret_cast<char*>(&ntHeaders), sizeof(ntHeaders));
+    outFile.seekp(dosHeader.e_lfanew + sizeof(ntHeaders.Signature));
+    outFile.write(reinterpret_cast<char*>(&coffHeader), sizeof(coffHeader));
 }
